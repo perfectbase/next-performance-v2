@@ -52,19 +52,23 @@ export function Sidebar() {
         {NAVIGATION_ITEMS.map((item) => {
           const isActive = pathname === item.href;
           return (
-            <Link key={item.href} href={item.href} className="block">
-              <Button
-                variant="ghost"
-                className={cn(
-                  "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sidebar-foreground h-10 w-full justify-start px-3",
-                  isActive &&
-                    "bg-sidebar-primary text-sidebar-primary-foreground hover:bg-sidebar-primary/90 hover:text-sidebar-primary-foreground",
-                )}
-              >
+            <Button
+              key={item.href}
+              variant="ghost"
+              className={cn(
+                "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sidebar-foreground h-10 w-full justify-start px-3",
+                isActive &&
+                  "bg-sidebar-primary text-sidebar-primary-foreground hover:bg-sidebar-primary/90 hover:text-sidebar-primary-foreground",
+                process.env.NEXT_PUBLIC_CLICK_HINT === "true" &&
+                  "active:bg-amber-200 active:text-amber-800",
+              )}
+              asChild
+            >
+              <Link href={item.href}>
                 {item.icon}
                 {item.name}
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           );
         })}
       </nav>
