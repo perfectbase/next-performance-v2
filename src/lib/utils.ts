@@ -16,7 +16,7 @@ export function formatDate(date: string) {
 export function getBaseUrl() {
   // Use relative path if from the browser
   if (typeof window !== "undefined") return "";
-  // Use production URL Vercel's production deployment
+  // Use production URL for Vercel's production deployment
   if (process.env.VERCEL_ENV === "production") {
     return "https://" + process.env.VERCEL_PROJECT_PRODUCTION_URL;
   }
