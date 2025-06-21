@@ -1,3 +1,4 @@
+import { ItemResponse } from "@/app/api/items/[id]/route";
 import { ItemsResponse } from "@/app/api/items/route";
 import { Item } from "./mock";
 import { getBaseUrl } from "./utils";
@@ -17,5 +18,26 @@ export async function getItems(): Promise<Item[]> {
   } catch (error) {
     console.error("Error fetching items:", error);
     return [];
+  }
+}
+
+export async function getItem(id: number): Promise<Item | null> {
+  try {
+    const response = await fetch(`${getBaseUrl()}/api/items/${id}`, {
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        return null;
+      }
+      throw new Error("Failed to fetch item");
+    }
+
+    const data: ItemResponse = await response.json();
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching item:", error);
+    return null;
   }
 }

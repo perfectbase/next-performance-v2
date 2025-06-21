@@ -1,6 +1,6 @@
 "use client";
 
-import { CreditCard, FileText, Table2 } from "lucide-react";
+import { CreditCard, HomeIcon, Table2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -19,19 +19,19 @@ type NavigationItem = {
 
 const NAVIGATION_ITEMS = [
   {
-    name: "Cards",
+    name: "Home",
     href: "/",
+    icon: <HomeIcon className="mr-3 h-4 w-4" />,
+  },
+  {
+    name: "Cards",
+    href: "/cards",
     icon: <CreditCard className="mr-3 h-4 w-4" />,
   },
   {
     name: "Table",
     href: "/table",
     icon: <Table2 className="mr-3 h-4 w-4" />,
-  },
-  {
-    name: "Static",
-    href: "/static",
-    icon: <FileText className="mr-3 h-4 w-4" />,
   },
 ] as const satisfies NavigationItem[];
 
@@ -50,7 +50,11 @@ export function Sidebar() {
       {/* Navigation Links */}
       <nav className="flex-1 space-y-2 p-4">
         {NAVIGATION_ITEMS.map((item) => {
-          const isActive = pathname === item.href;
+          const isActive =
+            item.href === "/"
+              ? pathname === "/"
+              : pathname.startsWith(item.href);
+
           return (
             <Button
               key={item.href}

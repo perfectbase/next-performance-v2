@@ -30,7 +30,8 @@ async function ItemCards() {
         {items.map((item) => (
           <Card
             key={item.id}
-            className="flex h-full flex-col transition-shadow hover:shadow-lg"
+            href={`/cards/${item.id}`}
+            className="flex h-full cursor-pointer flex-col transition-shadow hover:shadow-lg"
           >
             <CardHeader className="flex-shrink-0">
               <CardTitle className="truncate text-lg" title={item.title}>

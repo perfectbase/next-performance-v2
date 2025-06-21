@@ -1,16 +1,31 @@
+"use client";
+
+import Link from "next/link";
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
+function Card({
+  className,
+  ...props
+}: React.ComponentProps<"div"> & { href?: string }) {
+  const MaybeLink = (props: { href?: string; children: React.ReactNode }) => {
+    if (props.href) {
+      return <Link href={props.href}>{props.children}</Link>;
+    }
+    return <>{props.children}</>;
+  };
+
   return (
-    <div
-      data-slot="card"
-      className={cn(
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm",
-        className,
-      )}
-      {...props}
-    />
+    <MaybeLink href={props.href}>
+      <div
+        data-slot="card"
+        className={cn(
+          "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm",
+          className,
+        )}
+        {...props}
+      />
+    </MaybeLink>
   );
 }
 
