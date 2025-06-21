@@ -10,7 +10,8 @@ import {
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useTransition } from "react";
 import { cn } from "@/lib/utils";
 import BlueskyIcon from "@/components/icons/bluesky";
 import GitHubIcon from "@/components/icons/github";
@@ -136,16 +137,31 @@ export function Sidebar() {
         </div>
         <div className="flex items-center justify-between gap-2">
           <div className="text-center text-xs font-semibold">by: Ravi</div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => signOut({ callbackUrl: "/signin" })}
-          >
-            <LogOutIcon className="mr-2 h-4 w-4" />
-            Logout
-          </Button>
+          <SignOutButton />
         </div>
       </div>
     </div>
+  );
+}
+
+function SignOutButton() {
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+
+  return (
+    <Button
+      variant="ghost"
+      size="sm"
+      onClick={() =>
+        startTransition(async () => {
+          await signOut({ redirect: false });
+          router.refresh();
+        })
+      }
+      disabled={isPending}
+    >
+      <LogOutIcon className="mr-2 h-4 w-4" />
+      Sign Out
+    </Button>
   );
 }
