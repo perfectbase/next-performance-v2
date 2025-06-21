@@ -16,7 +16,7 @@
   --color-secondary-foreground: hsl(243.1579 13.6691% 27.2549%);
   --color-muted: hsl(258 15.1515% 87.0588%);
   --color-muted-foreground: hsl(247.5 10.3448% 45.4902%);
-  --color-accent: hsl(259, 20%, 81%);
+  --color-accent: hsl(260, 26%, 91%);
   --color-accent-foreground: hsl(343.4483 23.9669% 23.7255%);
   --color-destructive: hsl(0 62.1891% 60.5882%);
   --color-destructive-foreground: hsl(260 23.0769% 97.451%);
@@ -32,7 +32,7 @@
   --color-sidebar-foreground: hsl(243.1579 13.6691% 27.2549%);
   --color-sidebar-primary: hsl(260.4 22.9358% 57.2549%);
   --color-sidebar-primary-foreground: hsl(260 23.0769% 97.451%);
-  --color-sidebar-accent: hsl(259, 20%, 81%);
+  --color-sidebar-accent: hsl(260, 26%, 91%);
   --color-sidebar-accent-foreground: hsl(343.4483 23.9669% 23.7255%);
   --color-sidebar-border: hsl(261.4286 18.4211% 85.098%);
   --color-sidebar-ring: hsl(260.4 22.9358% 57.2549%);
