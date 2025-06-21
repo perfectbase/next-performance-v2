@@ -1,10 +1,10 @@
+import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { Spinner } from "./spinner";
 
 const buttonVariants = cva(
-  "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive relative inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
@@ -38,35 +38,20 @@ function Button({
   className,
   variant,
   size,
-  loading = false,
-  children,
+  asChild = false,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
-    loading?: boolean;
+    asChild?: boolean;
   }) {
+  const Comp = asChild ? Slot : "button";
+
   return (
-    <button
+    <Comp
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
-    >
-      {children}
-      {loading && (
-        <Spinner
-          size="small"
-          className={cn(
-            "absolute inset-0 m-auto",
-            variant === "secondary" && "border-secondary border-t-transparent",
-            variant === "outline" && "border-secondary border-t-transparent",
-            variant === "destructive" &&
-              "border-destructive border-t-transparent",
-            variant === "ghost" && "border-secondary border-t-transparent",
-            variant === "link" && "border-secondary border-t-transparent",
-          )}
-        />
-      )}
-    </button>
+    />
   );
 }
 

@@ -4,6 +4,7 @@ import { useFormContext } from "./hooks/form-context";
 export function SubmitButton({
   label,
   allowDefaultValues = false,
+  disabled,
   ...props
 }: Omit<React.ComponentProps<typeof Button>, "type"> & {
   label: string;
@@ -21,8 +22,11 @@ export function SubmitButton({
       {(state) => (
         <Button
           type="submit"
-          loading={state.isSubmitting}
-          disabled={allowDefaultValues ? undefined : state.isDefaultValue}
+          disabled={
+            (allowDefaultValues ? undefined : state.isDefaultValue) ||
+            state.isSubmitting ||
+            disabled
+          }
           {...props}
         >
           {label}

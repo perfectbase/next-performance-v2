@@ -11,7 +11,6 @@ export type ItemsResponse = {
 export async function GET() {
   // Check session
   const session = await auth();
-  console.log("session", session);
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }

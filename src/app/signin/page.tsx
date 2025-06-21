@@ -2,13 +2,14 @@
 
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useAppForm } from "@/components/form/hooks/form-context";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ErrorText } from "@/components/ui/error-text";
 
 export default function SignInPage() {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const [signInError, setSignInError] = useState<string | null>(null);
 
   const form = useAppForm({
@@ -16,18 +17,20 @@ export default function SignInPage() {
       username: "",
       password: "",
     },
-    onSubmit: async ({ value }) => {
-      const result = await signIn("credentials", {
-        username: value.username,
-        password: value.password,
-        redirect: false,
-        callbackUrl: "/",
+    onSubmit: ({ value }) => {
+      startTransition(async () => {
+        const result = await signIn("credentials", {
+          username: value.username,
+          password: value.password,
+          redirect: false,
+          callbackUrl: "/",
+        });
+        if (result?.error) {
+          setSignInError("Invalid username or password");
+        } else {
+          router.refresh();
+        }
       });
-      if (result?.error) {
-        setSignInError("Invalid username or password");
-      } else {
-        router.refresh();
-      }
     },
   });
 
@@ -65,7 +68,11 @@ export default function SignInPage() {
                   )}
                 </form.AppField>
                 {signInError && <ErrorText>{signInError}</ErrorText>}
-                <form.SubmitButton label="Sign In" className="w-full" />
+                <form.SubmitButton
+                  label="Sign In"
+                  className="w-full"
+                  disabled={isPending}
+                />
               </form.AppForm>
             </form>
           </CardContent>
