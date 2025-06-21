@@ -15,7 +15,7 @@ export const mockItems: Item[] = [
       "Learn the latest techniques in web development with React and Next.js",
     category: "Technology",
     price: 99.99,
-    createdAt: "2024-01-15T10:30:00Z",
+    createdAt: "2025-06-21T10:30:00Z",
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ export const mockItems: Item[] = [
       "Master the fundamentals of user interface and user experience design",
     category: "Design",
     price: 79.99,
-    createdAt: "2024-01-14T14:20:00Z",
+    createdAt: "2025-06-15T14:20:00Z",
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ export const mockItems: Item[] = [
       "Advanced techniques for optimizing database performance and queries",
     category: "Backend",
     price: 129.99,
-    createdAt: "2024-01-13T09:15:00Z",
+    createdAt: "2025-06-13T09:15:00Z",
   },
   {
     id: 4,
@@ -41,7 +41,7 @@ export const mockItems: Item[] = [
     description: "Build cross-platform mobile applications with React Native",
     category: "Mobile",
     price: 149.99,
-    createdAt: "2024-01-12T16:45:00Z",
+    createdAt: "2025-06-12T16:45:00Z",
   },
   {
     id: 5,
@@ -50,7 +50,7 @@ export const mockItems: Item[] = [
       "Design scalable cloud solutions using AWS and modern DevOps practices",
     category: "Cloud",
     price: 199.99,
-    createdAt: "2024-01-11T11:30:00Z",
+    createdAt: "2025-06-11T11:30:00Z",
   },
   {
     id: 6,
@@ -58,6 +58,6 @@ export const mockItems: Item[] = [
     description: "Create robust RESTful APIs and GraphQL endpoints",
     category: "Backend",
     price: 89.99,
-    createdAt: "2024-01-10T13:20:00Z",
+    createdAt: "2025-06-10T13:20:00Z",
   },
 ];

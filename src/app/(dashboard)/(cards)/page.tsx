@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { getItems } from "@/lib/sdk";
+import { formatDate } from "@/lib/utils";
 import {
   Card,
   CardContent,
@@ -50,7 +51,7 @@ async function ItemCards() {
                   </span>
                 </div>
                 <div className="text-muted-foreground border-t pt-3 text-sm">
-                  Created: {new Date(item.createdAt).toLocaleDateString()}
+                  Created: {formatDate(item.createdAt)}
                 </div>
               </div>
             </CardContent>
