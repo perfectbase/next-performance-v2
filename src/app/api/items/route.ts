@@ -11,7 +11,7 @@ export type ItemsResponse = {
 
 export async function GET() {
   // Simulate API delay
-  await new Promise((resolve) => setTimeout(resolve, 200));
+  await new Promise((resolve) => setTimeout(resolve, 300));
 
   return NextResponse.json<ItemsResponse>({
     success: true,

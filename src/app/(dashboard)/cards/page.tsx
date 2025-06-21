@@ -26,7 +26,7 @@ async function ItemCards() {
 
   return (
     <div className="@container">
-      <div className="grid grid-cols-2 gap-6 @4xl:grid-cols-3">
+      <div className="grid gap-6 @lg:grid-cols-2 @4xl:grid-cols-3">
         {items.map((item) => (
           <Card
             key={item.id}

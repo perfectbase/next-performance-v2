@@ -13,7 +13,7 @@ export default function HomePage() {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card
           href="/cards"
-          className="cursor-pointer transition-shadow hover:shadow-lg"
+          className="h-full cursor-pointer transition-shadow hover:shadow-lg"
         >
           <CardHeader>
             <CardTitle className="text-xl">Cards View</CardTitle>
@@ -28,7 +28,7 @@ export default function HomePage() {
 
         <Card
           href="/table"
-          className="cursor-pointer transition-shadow hover:shadow-lg"
+          className="h-full cursor-pointer transition-shadow hover:shadow-lg"
         >
           <CardHeader>
             <CardTitle className="text-xl">Table View</CardTitle>
