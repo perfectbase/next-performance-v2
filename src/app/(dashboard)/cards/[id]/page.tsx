@@ -22,9 +22,9 @@ export default function ItemDetailsPage({ params }: PageProps) {
     <div>
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Item Details</h1>
-        <Button variant="outline" asChild>
-          <Link href="/cards">← Back to Cards</Link>
-        </Button>
+        <Link href="/cards">
+          <Button variant="outline">← Back to Cards</Button>
+        </Link>
       </div>
       <Suspense fallback={<ItemDetailsSkeleton />}>
         <ItemDetails params={params} />

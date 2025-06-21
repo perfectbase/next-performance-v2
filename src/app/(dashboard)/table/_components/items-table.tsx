@@ -7,8 +7,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useRouter } from "next/navigation";
-import { Item } from "@/lib/mock";
 import { formatDate } from "@/lib/utils";
+import { Item } from "@/server/mock/items";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,

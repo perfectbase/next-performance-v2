@@ -15,12 +15,12 @@ export default function NotFound() {
         </h2>
 
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-          <Button asChild>
-            <Link href="/">
+          <Link href="/">
+            <Button>
               <Home className="mr-2 h-4 w-4" />
               Go Home
-            </Link>
-          </Button>
+            </Button>
+          </Link>
 
           <Button variant="outline" onClick={() => window.history.back()}>
             <ArrowLeft className="mr-2 h-4 w-4" />

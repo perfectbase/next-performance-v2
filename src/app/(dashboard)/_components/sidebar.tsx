@@ -1,6 +1,13 @@
 "use client";
 
-import { CreditCard, HomeIcon, Table2 } from "lucide-react";
+import {
+  CreditCardIcon,
+  HomeIcon,
+  LogOutIcon,
+  ShieldIcon,
+  Table2Icon,
+} from "lucide-react";
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,14 +17,16 @@ import GitHubIcon from "@/components/icons/github";
 import XIcon from "@/components/icons/x";
 import YouTubeIcon from "@/components/icons/youtube";
 import { Button } from "@/components/ui/button";
+import { useAppContext } from "./app-context-provider";
 
 type NavigationItem = {
   name: string;
   href: string;
   icon: React.ReactNode;
+  adminOnly?: boolean;
 };
 
-const NAVIGATION_ITEMS = [
+const NAVIGATION_ITEMS: NavigationItem[] = [
   {
     name: "Home",
     href: "/",
@@ -26,17 +35,28 @@ const NAVIGATION_ITEMS = [
   {
     name: "Cards",
     href: "/cards",
-    icon: <CreditCard className="mr-3 h-4 w-4" />,
+    icon: <CreditCardIcon className="mr-3 h-4 w-4" />,
   },
   {
     name: "Table",
     href: "/table",
-    icon: <Table2 className="mr-3 h-4 w-4" />,
+    icon: <Table2Icon className="mr-3 h-4 w-4" />,
   },
-] as const satisfies NavigationItem[];
+  {
+    name: "Admin",
+    href: "/admin",
+    icon: <ShieldIcon className="mr-3 h-4 w-4" />,
+    adminOnly: true,
+  },
+];
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { session } = useAppContext();
+
+  const filteredNavigationItems = NAVIGATION_ITEMS.filter(
+    (item) => !item.adminOnly || session.user.role === "admin",
+  );
 
   return (
     <div className="bg-sidebar border-sidebar-border fixed top-4 bottom-4 left-4 z-50 flex w-(--sidebar-width) flex-col rounded-lg border shadow-lg">
@@ -49,30 +69,28 @@ export function Sidebar() {
 
       {/* Navigation Links */}
       <nav className="flex-1 space-y-2 p-4">
-        {NAVIGATION_ITEMS.map((item) => {
+        {filteredNavigationItems.map((item) => {
           const isActive =
             item.href === "/"
               ? pathname === "/"
               : pathname.startsWith(item.href);
 
           return (
-            <Button
-              key={item.href}
-              variant="ghost"
-              className={cn(
-                "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sidebar-foreground h-10 w-full justify-start px-3",
-                isActive &&
-                  "bg-sidebar-primary text-sidebar-primary-foreground hover:bg-sidebar-primary/90 hover:text-sidebar-primary-foreground",
-                process.env.NEXT_PUBLIC_CLICK_HINT === "true" &&
-                  "active:bg-amber-200 active:text-amber-800",
-              )}
-              asChild
-            >
-              <Link href={item.href}>
+            <Link key={item.href} href={item.href}>
+              <Button
+                variant="ghost"
+                className={cn(
+                  "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sidebar-foreground h-10 w-full justify-start px-3",
+                  isActive &&
+                    "bg-sidebar-primary text-sidebar-primary-foreground hover:bg-sidebar-primary/90 hover:text-sidebar-primary-foreground",
+                  process.env.NEXT_PUBLIC_CLICK_HINT === "true" &&
+                    "active:bg-amber-200 active:text-amber-800",
+                )}
+              >
                 {item.icon}
                 {item.name}
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           );
         })}
       </nav>
@@ -116,7 +134,17 @@ export function Sidebar() {
             <YouTubeIcon width={30} height={30} />
           </Link>
         </div>
-        <p className="text-center text-xs font-semibold">by: Ravi</p>
+        <div className="flex items-center justify-between gap-2">
+          <div className="text-center text-xs font-semibold">by: Ravi</div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => signOut({ callbackUrl: "/signin" })}
+          >
+            <LogOutIcon className="mr-2 h-4 w-4" />
+            Logout
+          </Button>
+        </div>
       </div>
     </div>
   );

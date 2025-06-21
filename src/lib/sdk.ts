@@ -1,12 +1,13 @@
+import { headers } from "next/headers";
+import { Item } from "@/server/mock/items";
 import { ItemResponse } from "@/app/api/items/[id]/route";
 import { ItemsResponse } from "@/app/api/items/route";
-import { Item } from "./mock";
 import { getBaseUrl } from "./utils";
 
 export async function getItems(): Promise<Item[]> {
   try {
     const response = await fetch(`${getBaseUrl()}/api/items`, {
-      cache: "no-store",
+      headers: await headers(),
     });
 
     if (!response.ok) {
@@ -24,7 +25,7 @@ export async function getItems(): Promise<Item[]> {
 export async function getItem(id: number): Promise<Item | null> {
   try {
     const response = await fetch(`${getBaseUrl()}/api/items/${id}`, {
-      cache: "no-store",
+      headers: await headers(),
     });
 
     if (!response.ok) {
