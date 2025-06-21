@@ -1,46 +1,63 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@theme inline {
-  --color-background: oklch(1 0 0);
-  --color-foreground: oklch(0.145 0 0);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-ring: oklch(0.708 0 0);
-  --color-input: oklch(0.922 0 0);
-  --color-border: oklch(0.922 0 0);
-  --color-destructive: oklch(0.577 0.245 27.325);
-  --color-accent-foreground: oklch(0.205 0 0);
-  --color-accent: oklch(0.97 0 0);
-  --color-muted-foreground: oklch(0.556 0 0);
-  --color-muted: oklch(0.97 0 0);
-  --color-secondary-foreground: oklch(0.205 0 0);
-  --color-secondary: oklch(0.97 0 0);
-  --color-primary-foreground: oklch(0.985 0 0);
-  --color-primary: oklch(0.205 0 0);
-  --color-popover-foreground: oklch(0.145 0 0);
-  --color-popover: oklch(1 0 0);
-  --color-card-foreground: oklch(0.145 0 0);
-  --color-card: oklch(1 0 0);
-  --color-chart-5: oklch(0.769 0.188 70.08);
-  --color-chart-4: oklch(0.828 0.189 84.429);
-  --color-chart-3: oklch(0.398 0.07 227.392);
-  --color-chart-2: oklch(0.6 0.118 184.704);
-  --color-chart-1: oklch(0.646 0.222 41.116);
-  --color-sidebar-ring: oklch(0.708 0 0);
-  --color-sidebar-border: oklch(0.922 0 0);
-  --color-sidebar-accent-foreground: oklch(0.205 0 0);
-  --color-sidebar-accent: oklch(0.97 0 0);
-  --color-sidebar-primary-foreground: oklch(0.985 0 0);
-  --color-sidebar-primary: oklch(0.205 0 0);
-  --color-sidebar-foreground: oklch(0.145 0 0);
-  --color-sidebar: oklch(0.985 0 0);
+@custom-variant dark (&:is(.dark *));
 
-  --radius: 0.625rem;
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+@theme inline {
+  --color-background: hsl(260 23.0769% 97.451%);
+  --color-foreground: hsl(243.1579 13.6691% 27.2549%);
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(243.1579 13.6691% 27.2549%);
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(243.1579 13.6691% 27.2549%);
+  --color-primary: hsl(260.4 22.9358% 57.2549%);
+  --color-primary-foreground: hsl(260 23.0769% 97.451%);
+  --color-secondary: hsl(258.9474 33.3333% 88.8235%);
+  --color-secondary-foreground: hsl(243.1579 13.6691% 27.2549%);
+  --color-muted: hsl(258 15.1515% 87.0588%);
+  --color-muted-foreground: hsl(247.5 10.3448% 45.4902%);
+  --color-accent: hsl(259, 20%, 81%);
+  --color-accent-foreground: hsl(343.4483 23.9669% 23.7255%);
+  --color-destructive: hsl(0 62.1891% 60.5882%);
+  --color-destructive-foreground: hsl(260 23.0769% 97.451%);
+  --color-border: hsl(258.75 17.3913% 81.9608%);
+  --color-input: hsl(260 23.0769% 92.3529%);
+  --color-ring: hsl(260.4 22.9358% 57.2549%);
+  --color-chart-1: hsl(260.4 22.9358% 57.2549%);
+  --color-chart-2: hsl(342.4615 56.5217% 77.451%);
+  --color-chart-3: hsl(158.7692 31.401% 59.4118%);
+  --color-chart-4: hsl(35.7576 76.7442% 74.7059%);
+  --color-chart-5: hsl(215.8209 54.4715% 75.8824%);
+  --color-sidebar: hsl(260 23.0769% 94.902%);
+  --color-sidebar-foreground: hsl(243.1579 13.6691% 27.2549%);
+  --color-sidebar-primary: hsl(260.4 22.9358% 57.2549%);
+  --color-sidebar-primary-foreground: hsl(260 23.0769% 97.451%);
+  --color-sidebar-accent: hsl(259, 20%, 81%);
+  --color-sidebar-accent-foreground: hsl(343.4483 23.9669% 23.7255%);
+  --color-sidebar-border: hsl(261.4286 18.4211% 85.098%);
+  --color-sidebar-ring: hsl(260.4 22.9358% 57.2549%);
+
+  --font-sans: Geist, sans-serif;
+  --font-serif: "Lora", Georgia, serif;
+  --font-mono: "Fira Code", "Courier New", monospace;
+
+  --radius: 0.5rem;
+
+  --shadow-2xs: 1px 2px 5px 1px hsl(0 0% 0% / 0.03);
+  --shadow-xs: 1px 2px 5px 1px hsl(0 0% 0% / 0.03);
+  --shadow-sm:
+    1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 1px 2px 0px hsl(0 0% 0% / 0.06);
+  --shadow:
+    1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 1px 2px 0px hsl(0 0% 0% / 0.06);
+  --shadow-md:
+    1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 2px 4px 0px hsl(0 0% 0% / 0.06);
+  --shadow-lg:
+    1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 4px 6px 0px hsl(0 0% 0% / 0.06);
+  --shadow-xl:
+    1px 2px 5px 1px hsl(0 0% 0% / 0.06), 1px 8px 10px 0px hsl(0 0% 0% / 0.06);
+  --shadow-2xl: 1px 2px 5px 1px hsl(0 0% 0% / 0.15);
+
+  --sidebar-width: 16rem;
 }
 
 @layer base {
@@ -49,5 +66,8 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  button {
+    @apply cursor-pointer;
   }
 }
