@@ -1,4 +1,5 @@
-import { Item, ItemsResponse } from "@/app/api/items/route";
+import { ItemsResponse } from "@/app/api/items/route";
+import { Item } from "./mock";
 import { getBaseUrl } from "./utils";
 
 export async function getItems(): Promise<Item[]> {
