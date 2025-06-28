@@ -10,7 +10,11 @@ function Card({
 }: React.ComponentProps<"div"> & { href?: string }) {
   const MaybeLink = (props: { href?: string; children: React.ReactNode }) => {
     if (props.href) {
-      return <Link href={props.href}>{props.children}</Link>;
+      return (
+        <Link href={props.href} className="active:[&_div]:bg-amber-100">
+          {props.children}
+        </Link>
+      );
     }
     return <>{props.children}</>;
   };
