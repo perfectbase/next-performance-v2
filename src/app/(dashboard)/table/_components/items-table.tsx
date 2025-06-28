@@ -105,7 +105,7 @@ export function ItemsTable({ data }: { data: Item[] }) {
             <TableRow
               key={row.id}
               data-state={row.getIsSelected() && "selected"}
-              className="cursor-pointer"
+              className="cursor-pointer active:bg-amber-100 active:text-amber-800"
               onClick={() => router.push(`/table/${row.original.id}`)}
             >
               {row.getVisibleCells().map((cell) => (
