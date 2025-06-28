@@ -7,7 +7,7 @@ import { getBaseUrl } from "./utils";
 export async function getItems(): Promise<Item[]> {
   try {
     const response = await fetch(`${getBaseUrl()}/api/items`, {
-      headers: await headers(),
+      headers: new Headers(await headers()),
     });
 
     if (!response.ok) {
@@ -25,7 +25,7 @@ export async function getItems(): Promise<Item[]> {
 export async function getItem(id: number): Promise<Item | null> {
   try {
     const response = await fetch(`${getBaseUrl()}/api/items/${id}`, {
-      headers: await headers(),
+      headers: new Headers(await headers()),
     });
 
     if (!response.ok) {
