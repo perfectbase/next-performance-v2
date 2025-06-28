@@ -5,9 +5,10 @@ import { ItemsResponse } from "@/app/api/items/route";
 import { getBaseUrl } from "./utils";
 
 export async function getItems(): Promise<Item[]> {
+  const headersList = await headers(); // we need to use headers() outside of the try/catch so that nextjs can detect the dynamic call
   try {
     const response = await fetch(`${getBaseUrl()}/api/items`, {
-      headers: new Headers(await headers()),
+      headers: new Headers(headersList),
     });
 
     if (!response.ok) {
@@ -23,9 +24,10 @@ export async function getItems(): Promise<Item[]> {
 }
 
 export async function getItem(id: number): Promise<Item | null> {
+  const headersList = await headers(); // we need to use headers() outside of the try/catch so that nextjs can detect the dynamic call
   try {
     const response = await fetch(`${getBaseUrl()}/api/items/${id}`, {
-      headers: new Headers(await headers()),
+      headers: new Headers(headersList),
     });
 
     if (!response.ok) {
