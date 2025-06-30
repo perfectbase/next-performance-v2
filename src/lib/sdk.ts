@@ -1,15 +1,12 @@
-import { headers } from "next/headers";
+import { unstable_cache } from "next/cache";
 import { Item } from "@/server/mock/items";
 import { ItemResponse } from "@/app/api/items/[id]/route";
 import { ItemsResponse } from "@/app/api/items/route";
 import { getBaseUrl } from "./utils";
 
-export async function getItems(): Promise<Item[]> {
-  const headersList = await headers(); // we need to use headers() outside of the try/catch so that nextjs can detect the dynamic call
+async function getItems(): Promise<Item[]> {
   try {
-    const response = await fetch(`${getBaseUrl()}/api/items`, {
-      headers: new Headers(headersList),
-    });
+    const response = await fetch(`${getBaseUrl()}/api/items`);
 
     if (!response.ok) {
       throw new Error("Failed to fetch items");
@@ -23,12 +20,13 @@ export async function getItems(): Promise<Item[]> {
   }
 }
 
-export async function getItem(id: number): Promise<Item | null> {
-  const headersList = await headers(); // we need to use headers() outside of the try/catch so that nextjs can detect the dynamic call
+export const getCachedItems = unstable_cache(getItems, ["items"], {
+  tags: ["items"],
+});
+
+async function getItem(id: number): Promise<Item | null> {
   try {
-    const response = await fetch(`${getBaseUrl()}/api/items/${id}`, {
-      headers: new Headers(headersList),
-    });
+    const response = await fetch(`${getBaseUrl()}/api/items/${id}`);
 
     if (!response.ok) {
       if (response.status === 404) {
@@ -44,3 +42,7 @@ export async function getItem(id: number): Promise<Item | null> {
     return null;
   }
 }
+
+export const getCachedItem = unstable_cache(getItem, ["item"], {
+  tags: ["items"],
+});

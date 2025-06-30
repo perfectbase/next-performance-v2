@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/server/auth";
 import { Item, mockItems } from "@/server/mock/items";
 
 export type ItemResponse = {
@@ -11,12 +10,6 @@ export async function GET(
   _req: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  // Check session
-  const session = await auth();
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   // Simulate API delay
   await new Promise((resolve) => setTimeout(resolve, 100));
 
