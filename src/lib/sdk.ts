@@ -1,38 +1,34 @@
-import { auth } from "@/server/auth";
+import { unstable_cache } from "next/cache";
 import { mockItems } from "@/server/mock/items";
 
-export async function getItems() {
-  // Check session
-  const session = await auth();
-  if (!session) {
-    throw new Error("User is not signed-in");
-  }
+export const getCachedItems = unstable_cache(
+  async () => {
+    // Simulate query delay
+    await new Promise((resolve) => setTimeout(resolve, 300));
 
-  // Simulate query delay
-  await new Promise((resolve) => setTimeout(resolve, 300));
+    return mockItems;
+  },
+  undefined,
+  {
+    tags: ["items"],
+  },
+);
 
-  return mockItems;
-}
+export const getCachedItem = unstable_cache(
+  async (id: number) => {
+    // Simulate query delay
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
-export async function getItem(id: number) {
-  // Check session
-  const session = await auth();
-  if (!session) {
-    throw new Error("User is not signed-in");
-  }
+    const item = mockItems.find((item) => item.id === id);
 
-  // Simulate query delay
-  await new Promise((resolve) => setTimeout(resolve, 100));
+    if (!item) {
+      return null;
+    }
 
-  const item = mockItems.find((item) => item.id === id);
-
-  if (!item) {
-    return null;
-  }
-
-  return item;
-}
-
-export const getCachedItem = unstable_cache(getItem, ["item"], {
-  tags: ["items"],
-});
+    return item;
+  },
+  undefined,
+  {
+    tags: ["items"],
+  },
+);
