@@ -2,6 +2,8 @@ import { Suspense } from "react";
 import { getItems } from "@/lib/sdk";
 import { ItemsTable, ItemsTableSkeleton } from "./_components/items-table";
 
+export const runtime = "edge";
+
 export default function TablePage() {
   return (
     <div>

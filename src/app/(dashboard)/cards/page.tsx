@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
+export const runtime = "edge";
+
 export default function CardsPage() {
   return (
     <div>
