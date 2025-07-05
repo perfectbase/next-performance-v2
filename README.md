@@ -4,6 +4,8 @@ This repo contains a series of examples of how to improve navigation performance
 
 ## main
 
+- [URL](https://next-performance-v2.vercel.app)
+
 The main branch is the initial app structure. It is a simple dashboard app where most pages require signin. The dynamic data is fetched from server components and wrapped with Suspense. It shows that just wrapping your dynamic components with Suspense is not enough to make the page navigation fast.
 
 ## 1-loading.tsx
