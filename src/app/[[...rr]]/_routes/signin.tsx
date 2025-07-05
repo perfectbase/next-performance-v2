@@ -1,14 +1,12 @@
-"use client";
-
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
+import { useNavigate } from "react-router";
 import { useAppForm } from "@/components/form/hooks/form-context";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ErrorText } from "@/components/ui/error-text";
 
 export default function SignInPage() {
-  const router = useRouter();
+  const navigate = useNavigate();
   const [isPending, startTransition] = useTransition();
   const [signInError, setSignInError] = useState<string | null>(null);
 
@@ -28,7 +26,7 @@ export default function SignInPage() {
         if (result?.error) {
           setSignInError("Invalid username or password");
         } else {
-          router.refresh();
+          navigate("/");
         }
       });
     },

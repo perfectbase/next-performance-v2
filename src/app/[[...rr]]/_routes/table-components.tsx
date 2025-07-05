@@ -1,12 +1,10 @@
-"use client";
-
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router";
 import { formatDate } from "@/lib/utils";
 import { Item } from "@/server/mock/items";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -73,7 +71,7 @@ const columns: ColumnDef<Item>[] = [
 ];
 
 export function ItemsTable({ data }: { data: Item[] }) {
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const table = useReactTable({
     data,
@@ -106,7 +104,7 @@ export function ItemsTable({ data }: { data: Item[] }) {
               key={row.id}
               data-state={row.getIsSelected() && "selected"}
               className="cursor-pointer active:bg-amber-100 active:text-amber-800"
-              onClick={() => router.push(`/table/${row.original.id}`)}
+              onClick={() => navigate(`/table/${row.original.id}`)}
             >
               {row.getVisibleCells().map((cell) => (
                 <TableCell key={cell.id}>
