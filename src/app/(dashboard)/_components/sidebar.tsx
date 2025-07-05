@@ -3,13 +3,14 @@
 import {
   CreditCardIcon,
   HomeIcon,
+  Loader2Icon,
   LogOutIcon,
   ShieldIcon,
   Table2Icon,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
+import Link, { useLinkStatus } from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { cn } from "@/lib/utils";
@@ -90,6 +91,7 @@ export function Sidebar() {
               >
                 {item.icon}
                 {item.name}
+                <LinkLoadingIndicator />
               </Button>
             </Link>
           );
@@ -141,6 +143,19 @@ export function Sidebar() {
         </div>
       </div>
     </div>
+  );
+}
+
+function LinkLoadingIndicator() {
+  const { pending } = useLinkStatus();
+
+  if (!pending) return null;
+
+  return (
+    <>
+      <Loader2Icon className="h-4 w-4 animate-spin" />
+      <div className="animate-in fade-in fixed inset-0 left-[calc(var(--sidebar-width)+2rem)] z-40 backdrop-blur-sm" />
+    </>
   );
 }
 
