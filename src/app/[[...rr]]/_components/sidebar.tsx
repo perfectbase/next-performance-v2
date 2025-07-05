@@ -1,5 +1,3 @@
-"use client";
-
 import {
   CreditCardIcon,
   HomeIcon,
@@ -9,9 +7,9 @@ import {
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useTransition } from "react";
+import { Link, useLocation } from "react-router";
 import { cn } from "@/lib/utils";
 import BlueskyIcon from "@/components/icons/bluesky";
 import GitHubIcon from "@/components/icons/github";
@@ -52,7 +50,7 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
 ];
 
 export function Sidebar() {
-  const pathname = usePathname();
+  const location = useLocation();
   const { session } = useAppContext();
 
   const filteredNavigationItems = NAVIGATION_ITEMS.filter(
@@ -73,11 +71,11 @@ export function Sidebar() {
         {filteredNavigationItems.map((item) => {
           const isActive =
             item.href === "/"
-              ? pathname === "/"
-              : pathname.startsWith(item.href);
+              ? location.pathname === "/"
+              : location.pathname.startsWith(item.href);
 
           return (
-            <Link key={item.href} href={item.href}>
+            <Link key={item.href} to={item.href}>
               <Button
                 variant="ghost"
                 className={cn(
@@ -106,34 +104,34 @@ export function Sidebar() {
             height={30}
             className="rounded-full border border-gray-700"
           />
-          <Link
+          <a
             href="https://github.com/perfectbase/next-performance"
             aria-label="GitHub"
             className="rounded transition-colors hover:opacity-80"
           >
             <GitHubIcon width={30} height={30} />
-          </Link>
-          <Link
+          </a>
+          <a
             href="https://x.com/RaviCoding"
             aria-label="X"
             className="rounded transition-colors hover:opacity-80"
           >
             <XIcon width={30} height={30} />
-          </Link>
-          <Link
+          </a>
+          <a
             href="https://bsky.app/profile/ravicoding.bsky.social"
             aria-label="Bluesky"
             className="rounded transition-colors hover:opacity-80"
           >
             <BlueskyIcon width={30} height={30} className="px-0.5" />
-          </Link>
-          <Link
+          </a>
+          <a
             href="https://www.youtube.com/@perfectbase"
             aria-label="YouTube"
             className="rounded transition-colors hover:opacity-80"
           >
             <YouTubeIcon width={30} height={30} />
-          </Link>
+          </a>
         </div>
         <div className="flex items-center justify-between gap-2">
           <div className="text-center text-xs font-semibold">by: Ravi</div>
