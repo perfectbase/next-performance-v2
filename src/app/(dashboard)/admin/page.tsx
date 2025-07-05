@@ -3,6 +3,8 @@ import { Suspense } from "react";
 import { auth } from "@/server/auth";
 import { Skeleton } from "@/components/ui/skeleton";
 
+export const runtime = "edge";
+
 export default function AdminPage() {
   return (
     <div className="p-6">

@@ -3,6 +3,8 @@ import { auth } from "@/server/auth";
 import { AppContextProvider } from "./_components/app-context-provider";
 import Shell from "./_components/shell";
 
+export const runtime = "edge";
+
 export default async function DashboardLayout({
   children,
 }: {
