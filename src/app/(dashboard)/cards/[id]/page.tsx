@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { getItem } from "@/lib/sdk";
+import { getCachedItem } from "@/lib/sdk";
 import { formatDate } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -41,7 +41,7 @@ async function ItemDetails({ params }: { params: Promise<{ id: string }> }) {
     notFound();
   }
 
-  const item = await getItem(itemId);
+  const item = await getCachedItem(itemId);
 
   if (!item) {
     notFound();
