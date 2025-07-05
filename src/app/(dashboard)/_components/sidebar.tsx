@@ -149,12 +149,12 @@ export function Sidebar() {
 function LinkLoadingIndicator() {
   const { pending } = useLinkStatus();
 
+  if (!pending) return null;
+
   return (
     <>
-      {pending && (
-        <div className="animate-in fade-in fixed inset-0 left-[calc(var(--sidebar-width)+2rem)] z-40 backdrop-blur-sm" />
-      )}
-      {pending ? <Loader2Icon className="h-4 w-4 animate-spin" /> : null}
+      <Loader2Icon className="h-4 w-4 animate-spin" />
+      <div className="animate-in fade-in fixed inset-0 left-[calc(var(--sidebar-width)+2rem)] z-40 backdrop-blur-sm" />
     </>
   );
 }
