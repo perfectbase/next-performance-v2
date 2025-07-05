@@ -1,7 +1,5 @@
-"use client";
-
-import { notFound } from "next/navigation";
-import { useAppContext } from "../_components/app-context-provider";
+import { useAppContext } from "@/components/app-shell/app-context-provider";
+import NotFound from "../404";
 
 export default function AdminPage() {
   return (
@@ -15,7 +13,7 @@ export default function AdminPage() {
 function AdminContent() {
   const { session } = useAppContext();
   if (session.user.role !== "admin") {
-    notFound();
+    return <NotFound />;
   }
 
   return <p className="text-muted-foreground">This is an admin only page.</p>;
