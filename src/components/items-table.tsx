@@ -6,7 +6,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { formatDate } from "@/lib/utils";
 import { Item } from "@/server/mock/items";
 import { Skeleton } from "@/components/ui/skeleton";
