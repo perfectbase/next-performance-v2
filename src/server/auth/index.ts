@@ -1,14 +1,6 @@
 import NextAuth from "next-auth";
-import { cache } from "react";
 import { getAuthConfig } from "./config";
 
-const {
-  auth: uncachedAuth,
-  handlers,
-  signIn,
-  signOut,
-} = NextAuth(getAuthConfig());
-
-const auth = cache(uncachedAuth);
+const { auth, handlers, signIn, signOut } = NextAuth(getAuthConfig());
 
 export { auth, handlers, signIn, signOut };
