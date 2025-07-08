@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { redirect } from "next/navigation";
 import { AppContextProvider } from "./_components/app-context-provider";
 import Shell from "./_components/shell";
 
@@ -10,11 +10,10 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
   const { data: session } = useSession({
     required: true,
     onUnauthenticated() {
-      router.replace("/signin");
+      redirect("/signin");
     },
   });
 
