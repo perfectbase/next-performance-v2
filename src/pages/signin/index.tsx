@@ -1,4 +1,4 @@
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState, useTransition } from "react";
 import { useAppForm } from "@/components/form/hooks/form-context";
@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ErrorText } from "@/components/ui/error-text";
 
 export default function SignInPage() {
+  const { status } = useSession();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [signInError, setSignInError] = useState<string | null>(null);
@@ -31,6 +32,15 @@ export default function SignInPage() {
       });
     },
   });
+
+  if (status === "loading") {
+    return null;
+  }
+
+  if (status === "authenticated") {
+    router.replace("/");
+    return null;
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
