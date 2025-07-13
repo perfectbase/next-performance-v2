@@ -13,7 +13,7 @@ import Image from "next/image";
 import Link, { useLinkStatus } from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTransition } from "react";
-// import { useSpinDelay } from "spin-delay";
+import { useSpinDelay } from "spin-delay";
 import { cn } from "@/lib/utils";
 import BlueskyIcon from "@/components/icons/bluesky";
 import GitHubIcon from "@/components/icons/github";
@@ -150,12 +150,12 @@ export function Sidebar() {
 function LinkLoadingIndicator() {
   const { pending } = useLinkStatus();
 
-  // const showSpinner = useSpinDelay(pending, {
-  //   delay: 30,
-  //   minDuration: 100,
-  // });
+  const showSpinner = useSpinDelay(pending, {
+    delay: 30,
+    minDuration: 100,
+  });
 
-  if (!pending) return null;
+  if (!showSpinner) return null;
 
   return (
     <>
