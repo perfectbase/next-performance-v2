@@ -1,7 +1,8 @@
+import { cacheTag } from "next/cache";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { getCachedItem } from "@/lib/sdk";
+import { getItem } from "@/lib/sdk";
 import { formatDate } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -34,6 +35,9 @@ export default function ItemDetailsPage({ params }: PageProps) {
 }
 
 async function ItemDetails({ params }: { params: Promise<{ id: string }> }) {
+  "use cache";
+  cacheTag("items");
+
   const { id } = await params;
   const itemId = parseInt(id, 10);
 
@@ -41,7 +45,7 @@ async function ItemDetails({ params }: { params: Promise<{ id: string }> }) {
     notFound();
   }
 
-  const item = await getCachedItem(itemId);
+  const item = await getItem(itemId);
 
   if (!item) {
     notFound();

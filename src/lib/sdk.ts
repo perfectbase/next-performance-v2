@@ -1,20 +1,14 @@
-import { cacheTag } from "next/cache";
+import { auth } from "@/server/auth";
 import { mockItems } from "@/server/mock/items";
 
-export async function getCachedItems() {
-  "use cache";
-  cacheTag("items");
-
+export async function getItems() {
   // Simulate query delay
   await new Promise((resolve) => setTimeout(resolve, 300));
 
   return mockItems;
 }
 
-export async function getCachedItem(id: number) {
-  "use cache";
-  cacheTag("items");
-
+export async function getItem(id: number) {
   // Simulate query delay
   await new Promise((resolve) => setTimeout(resolve, 100));
 
