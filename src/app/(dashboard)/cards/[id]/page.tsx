@@ -18,7 +18,10 @@ type PageProps = {
   params: Promise<{ id: string }>;
 };
 
-export default function ItemDetailsPage({ params }: PageProps) {
+export default async function ItemDetailsPage({ params }: PageProps) {
+  "use cache";
+  cacheTag("items");
+
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
@@ -35,9 +38,6 @@ export default function ItemDetailsPage({ params }: PageProps) {
 }
 
 async function ItemDetails({ params }: { params: Promise<{ id: string }> }) {
-  "use cache";
-  cacheTag("items");
-
   const { id } = await params;
   const itemId = parseInt(id, 10);
 
