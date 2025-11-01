@@ -21,6 +21,7 @@ type PageProps = {
 export default async function ItemDetailsPage({ params }: PageProps) {
   "use cache";
   const { id } = await params;
+  console.log("Page", new Date().toISOString());
 
   return (
     <div>
@@ -41,6 +42,7 @@ async function ItemDetails({ id }: { id: string }) {
   "use cache";
   cacheTag("items");
   const itemId = parseInt(id, 10);
+  console.log("Details", new Date().toISOString());
 
   if (isNaN(itemId)) {
     notFound();
