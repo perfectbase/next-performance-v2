@@ -1,7 +1,6 @@
-import { cacheTag } from "next/cache";
 import Link from "next/link";
 import { Suspense } from "react";
-import { getItems } from "@/lib/sdk";
+import { getCachedItems } from "@/lib/sdk";
 import { formatDate } from "@/lib/utils";
 import {
   Card,
@@ -24,10 +23,7 @@ export default function CardsPage() {
 }
 
 async function ItemCards() {
-  "use cache";
-  cacheTag("items");
-
-  const items = await getItems();
+  const items = await getCachedItems();
 
   return (
     <div className="@container">

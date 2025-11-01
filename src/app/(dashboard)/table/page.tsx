@@ -1,6 +1,5 @@
-import { cacheTag } from "next/cache";
 import { Suspense } from "react";
-import { getItems } from "@/lib/sdk";
+import { getCachedItems } from "@/lib/sdk";
 import { ItemsTable, ItemsTableSkeleton } from "./_components/items-table";
 
 export default function TablePage() {
@@ -15,9 +14,6 @@ export default function TablePage() {
 }
 
 async function ItemsTableWrapper() {
-  "use cache";
-  cacheTag("items");
-
-  const items = await getItems();
+  const items = await getCachedItems();
   return <ItemsTable data={items} />;
 }

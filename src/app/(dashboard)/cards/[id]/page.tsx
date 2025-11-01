@@ -2,7 +2,7 @@ import { cacheTag } from "next/cache";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { getItem } from "@/lib/sdk";
+import { getCachedItem } from "@/lib/sdk";
 import { formatDate } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,10 +19,6 @@ type PageProps = {
 };
 
 export default async function ItemDetailsPage({ params }: PageProps) {
-  "use cache";
-  const { id } = await params;
-  console.log("Page", new Date().toISOString());
-
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
@@ -32,15 +28,14 @@ export default async function ItemDetailsPage({ params }: PageProps) {
         </Link>
       </div>
       <Suspense fallback={<ItemDetailsSkeleton />}>
-        <ItemDetails id={id} />
+        <ItemDetails params={params} />
       </Suspense>
     </div>
   );
 }
 
-async function ItemDetails({ id }: { id: string }) {
-  "use cache";
-  cacheTag("items");
+async function ItemDetails({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const itemId = parseInt(id, 10);
   console.log("Details", new Date().toISOString());
 
@@ -48,7 +43,7 @@ async function ItemDetails({ id }: { id: string }) {
     notFound();
   }
 
-  const item = await getItem(itemId);
+  const item = await getCachedItem(itemId);
 
   if (!item) {
     notFound();
