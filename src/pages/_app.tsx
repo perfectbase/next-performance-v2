@@ -30,8 +30,6 @@ type CustomAppProps = AppProps & {
 export default function App({ Component, pageProps }: CustomAppProps) {
   const MaybeAppShell = Component.isPublic ? Fragment : Shell;
 
-  console.log(pageProps);
-
   return (
     <div className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <SessionProvider>
