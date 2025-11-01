@@ -36,7 +36,6 @@ async function ItemCards() {
           <Link
             key={item.id}
             href={`/cards/${item.id}`}
-            prefetch={index === 0 ? true : "auto"}
             className="active:[&_div]:bg-amber-100"
           >
             <Card className="flex h-full cursor-pointer flex-col transition-shadow hover:shadow-lg">
