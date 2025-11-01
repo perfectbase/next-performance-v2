@@ -9,6 +9,8 @@ export async function getItems() {
 }
 
 export async function getItem(id: number) {
+  "use cache";
+
   // Simulate query delay
   await new Promise((resolve) => setTimeout(resolve, 100));
 

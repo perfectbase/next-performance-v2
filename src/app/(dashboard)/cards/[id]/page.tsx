@@ -19,6 +19,7 @@ type PageProps = {
 };
 
 export default async function ItemDetailsPage({ params }: PageProps) {
+  "use cache";
   const { id } = await params;
 
   return (
