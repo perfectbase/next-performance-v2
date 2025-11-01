@@ -19,8 +19,7 @@ type PageProps = {
 };
 
 export default async function ItemDetailsPage({ params }: PageProps) {
-  "use cache: private";
-  cacheTag("items");
+  const { id } = await params;
 
   return (
     <div>
@@ -31,14 +30,15 @@ export default async function ItemDetailsPage({ params }: PageProps) {
         </Link>
       </div>
       <Suspense fallback={<ItemDetailsSkeleton />}>
-        <ItemDetails params={params} />
+        <ItemDetails id={id} />
       </Suspense>
     </div>
   );
 }
 
-async function ItemDetails({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+async function ItemDetails({ id }: { id: string }) {
+  "use cache";
+  cacheTag("items");
   const itemId = parseInt(id, 10);
 
   if (isNaN(itemId)) {
