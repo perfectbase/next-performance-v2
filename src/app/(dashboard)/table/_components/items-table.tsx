@@ -83,14 +83,6 @@ export function ItemsTable({ data }: { data: Item[] }) {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  useEffect(() => {
-    data.forEach((item, index) => {
-      router.prefetch(`/table/${item.id}`, {
-        kind: index === 0 ? PrefetchKind.FULL : PrefetchKind.AUTO,
-      });
-    });
-  }, [data, router]);
-
   return (
     <Table>
       <TableHeader>
