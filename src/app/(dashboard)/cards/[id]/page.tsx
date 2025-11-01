@@ -19,7 +19,7 @@ type PageProps = {
 };
 
 export default async function ItemDetailsPage({ params }: PageProps) {
-  "use cache";
+  "use cache: private";
   cacheTag("items");
 
   return (
