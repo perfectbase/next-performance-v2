@@ -1,7 +1,7 @@
 import { mockItems } from "@/server/mock/items";
 
 export async function getCachedItems() {
-  "use cache";
+  "use cache: remote";
   // Simulate query delay
   await new Promise((resolve) => setTimeout(resolve, 300));
 
@@ -9,7 +9,7 @@ export async function getCachedItems() {
 }
 
 export async function getCachedItem(id: number) {
-  "use cache";
+  "use cache: remote";
   // Simulate query delay
   await new Promise((resolve) => setTimeout(resolve, 100));
 
