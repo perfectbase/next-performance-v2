@@ -9,7 +9,6 @@ export async function getItems() {
 }
 
 export async function getItem(id: number) {
-  "use cache";
   console.log("Get Item", new Date().toISOString());
 
   // Simulate query delay

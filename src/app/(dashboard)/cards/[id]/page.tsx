@@ -19,8 +19,8 @@ type PageProps = {
 };
 
 export default async function ItemDetailsPage({ params }: PageProps) {
-  "use cache";
-  const { id } = await params;
+  "use cache: remote";
+  cacheTag("items");
   console.log("Page", new Date().toISOString());
 
   return (
@@ -32,15 +32,14 @@ export default async function ItemDetailsPage({ params }: PageProps) {
         </Link>
       </div>
       <Suspense fallback={<ItemDetailsSkeleton />}>
-        <ItemDetails id={id} />
+        <ItemDetails params={params} />
       </Suspense>
     </div>
   );
 }
 
-async function ItemDetails({ id }: { id: string }) {
-  "use cache";
-  cacheTag("items");
+async function ItemDetails({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const itemId = parseInt(id, 10);
   console.log("Details", new Date().toISOString());
 
