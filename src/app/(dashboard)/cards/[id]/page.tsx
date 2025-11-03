@@ -17,10 +17,7 @@ type PageProps = {
   params: Promise<{ id: string }>;
 };
 
-export default async function ItemDetailsPage({ params }: PageProps) {
-  "use cache: remote";
-  console.log("Page", new Date().toISOString());
-
+export default function ItemDetailsPage({ params }: PageProps) {
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
