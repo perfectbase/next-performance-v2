@@ -9,7 +9,7 @@ export async function getCachedItems() {
 }
 
 export async function getCachedItem(id: number) {
-  "use cache: remote";
+  "use cache";
   console.log("Get Item", new Date().toISOString());
   // Simulate query delay
   await new Promise((resolve) => setTimeout(resolve, 100));
