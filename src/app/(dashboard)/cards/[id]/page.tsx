@@ -13,6 +13,10 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
+export async function generateStaticParams() {
+  return [{ id: "1" }];
+}
+
 type PageProps = {
   params: Promise<{ id: string }>;
 };
