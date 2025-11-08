@@ -1,4 +1,5 @@
 import { SessionProvider } from "next-auth/react";
+import { Suspense } from "react";
 import Shell from "./_components/shell";
 
 export default function DashboardLayout({
@@ -8,7 +9,9 @@ export default function DashboardLayout({
 }) {
   return (
     <SessionProvider>
-      <Shell>{children}</Shell>
+      <Shell>
+        <Suspense>{children}</Suspense>
+      </Shell>
     </SessionProvider>
   );
 }
