@@ -1,5 +1,7 @@
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { Suspense } from "react";
 import { getItems } from "@/lib/sdk";
 import { formatDate } from "@/lib/utils";
 import {
@@ -15,15 +17,20 @@ export default function CardsPage() {
   return (
     <div>
       <h1 className="mb-6 text-3xl font-bold">Cards</h1>
-      <Suspense fallback={<ItemCardSkeleton />}>
-        <ItemCards />
-      </Suspense>
+      <ItemCards />
     </div>
   );
 }
 
-async function ItemCards() {
-  const items = await getItems();
+function ItemCards() {
+  const { data: items, status } = useQuery({
+    queryKey: ["items"],
+    queryFn: getItems,
+  });
+
+  if (status === "pending") return <ItemCardSkeleton />;
+
+  if (status === "error") return <div>Error</div>;
 
   return (
     <div className="@container">

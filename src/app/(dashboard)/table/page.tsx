@@ -1,4 +1,6 @@
-import { Suspense } from "react";
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
 import { getItems } from "@/lib/sdk";
 import { ItemsTable, ItemsTableSkeleton } from "./_components/items-table";
 
@@ -6,14 +8,20 @@ export default function TablePage() {
   return (
     <div>
       <h1 className="mb-6 text-3xl font-bold">Table</h1>
-      <Suspense fallback={<ItemsTableSkeleton />}>
-        <ItemsTableWrapper />
-      </Suspense>
+      <ItemsTableWrapper />
     </div>
   );
 }
 
-async function ItemsTableWrapper() {
-  const items = await getItems();
+function ItemsTableWrapper() {
+  const { data: items, status } = useQuery({
+    queryKey: ["items"],
+    queryFn: getItems,
+  });
+
+  if (status === "pending") return <ItemsTableSkeleton />;
+
+  if (status === "error") return <div>Error</div>;
+
   return <ItemsTable data={items} />;
 }

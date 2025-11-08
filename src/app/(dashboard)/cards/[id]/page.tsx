@@ -1,6 +1,8 @@
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { Suspense } from "react";
+import { notFound, useParams } from "next/navigation";
 import { getItem } from "@/lib/sdk";
 import { formatDate } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -13,11 +15,7 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-type PageProps = {
-  params: Promise<{ id: string }>;
-};
-
-export default function ItemDetailsPage({ params }: PageProps) {
+export default function ItemDetailsPage() {
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
@@ -26,22 +24,27 @@ export default function ItemDetailsPage({ params }: PageProps) {
           <Button variant="outline">← Back to Cards</Button>
         </Link>
       </div>
-      <Suspense fallback={<ItemDetailsSkeleton />}>
-        <ItemDetails params={params} />
-      </Suspense>
+      <ItemDetails />
     </div>
   );
 }
 
-async function ItemDetails({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+function ItemDetails() {
+  const { id } = useParams<{ id: string }>();
   const itemId = parseInt(id, 10);
 
   if (isNaN(itemId)) {
     notFound();
   }
 
-  const item = await getItem(itemId);
+  const { data: item, status } = useQuery({
+    queryKey: ["item", itemId],
+    queryFn: () => getItem(itemId),
+  });
+
+  if (status === "pending") return <ItemDetailsSkeleton />;
+
+  if (status === "error") return <div>Error</div>;
 
   if (!item) {
     notFound();

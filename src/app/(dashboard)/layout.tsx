@@ -1,16 +1,24 @@
+"use client";
+
+import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { auth } from "@/server/auth";
 import { AppContextProvider } from "./_components/app-context-provider";
 import Shell from "./_components/shell";
 
-export default async function DashboardLayout({
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth();
+  const { data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect("/signin");
+    },
+  });
+
   if (!session) {
-    redirect("/signin");
+    return null;
   }
 
   return (
