@@ -1,3 +1,5 @@
+"use cache";
+
 import ItemDetailsPage from "../../cards/[id]/page";
 
 export async function generateStaticParams() {

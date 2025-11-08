@@ -1,3 +1,5 @@
+"use cache";
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -21,7 +23,7 @@ type PageProps = {
   params: Promise<{ id: string }>;
 };
 
-export default function ItemDetailsPage({ params }: PageProps) {
+export default async function ItemDetailsPage({ params }: PageProps) {
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
