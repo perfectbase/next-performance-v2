@@ -1,8 +1,6 @@
-"use client";
-
 import { useQuery } from "@tanstack/react-query";
 import { getItems } from "@/lib/sdk";
-import { ItemsTable, ItemsTableSkeleton } from "./_components/items-table";
+import { ItemsTable, ItemsTableSkeleton } from "@/components/items-table";
 
 export default function TablePage() {
   return (

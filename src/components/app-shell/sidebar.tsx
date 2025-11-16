@@ -10,7 +10,7 @@ import {
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { useTransition } from "react";
 import { cn } from "@/lib/utils";
 import BlueskyIcon from "@/components/icons/bluesky";
@@ -52,7 +52,8 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
 ];
 
 export function Sidebar() {
-  const pathname = usePathname();
+  const router = useRouter();
+  const pathname = router.pathname;
   const { session } = useAppContext();
 
   const filteredNavigationItems = NAVIGATION_ITEMS.filter(
@@ -146,7 +147,6 @@ export function Sidebar() {
 
 function SignOutButton() {
   const [isPending, startTransition] = useTransition();
-  const router = useRouter();
 
   return (
     <Button
@@ -155,7 +155,6 @@ function SignOutButton() {
       onClick={() =>
         startTransition(async () => {
           await signOut({ redirect: false });
-          router.refresh();
         })
       }
       disabled={isPending}

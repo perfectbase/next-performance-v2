@@ -1,7 +1,5 @@
-"use client";
-
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { useState, useTransition } from "react";
 import { useAppForm } from "@/components/form/hooks/form-context";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -29,7 +27,7 @@ export default function SignInPage() {
         if (result?.error) {
           setSignInError("Invalid username or password");
         } else {
-          router.refresh();
+          router.reload();
         }
       });
     },
@@ -91,3 +89,5 @@ export default function SignInPage() {
     </div>
   );
 }
+
+SignInPage.isPublic = true;

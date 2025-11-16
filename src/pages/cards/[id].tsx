@@ -1,8 +1,6 @@
-"use client";
-
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { notFound, useParams } from "next/navigation";
+import { useRouter } from "next/router";
 import { getItem } from "@/lib/sdk";
 import { formatDate } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -14,6 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import NotFound from "@/pages/404";
 
 export default function ItemDetailsPage() {
   return (
@@ -30,12 +29,9 @@ export default function ItemDetailsPage() {
 }
 
 function ItemDetails() {
-  const { id } = useParams<{ id: string }>();
+  const router = useRouter();
+  const id = router.query.id as string;
   const itemId = parseInt(id, 10);
-
-  if (isNaN(itemId)) {
-    notFound();
-  }
 
   const { data: item, status } = useQuery({
     queryKey: ["item", itemId],
@@ -46,8 +42,8 @@ function ItemDetails() {
 
   if (status === "error") return <div>Error</div>;
 
-  if (!item) {
-    notFound();
+  if (!item || isNaN(itemId)) {
+    return <NotFound />;
   }
 
   return (
