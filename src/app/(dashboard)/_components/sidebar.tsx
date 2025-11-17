@@ -7,7 +7,7 @@ import {
   ShieldIcon,
   Table2Icon,
 } from "lucide-react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -18,7 +18,6 @@ import GitHubIcon from "@/components/icons/github";
 import XIcon from "@/components/icons/x";
 import YouTubeIcon from "@/components/icons/youtube";
 import { Button } from "@/components/ui/button";
-import { useAppContext } from "./app-context-provider";
 
 type NavigationItem = {
   name: string;
@@ -53,10 +52,10 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { session } = useAppContext();
+  const { data: session } = useSession();
 
   const filteredNavigationItems = NAVIGATION_ITEMS.filter(
-    (item) => !item.adminOnly || session.user.role === "admin",
+    (item) => !item.adminOnly || session?.user.role === "admin",
   );
 
   return (
