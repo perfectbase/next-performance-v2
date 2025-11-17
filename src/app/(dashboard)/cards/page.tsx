@@ -1,6 +1,9 @@
+"use cache";
+
+import { cacheLife, cacheTag } from "next/cache";
 import Link from "next/link";
 import { Suspense } from "react";
-import { getItems } from "@/lib/sdk";
+import { getCachedItems } from "@/lib/sdk";
 import { formatDate } from "@/lib/utils";
 import {
   Card,
@@ -11,7 +14,10 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function CardsPage() {
+export default async function CardsPage() {
+  cacheLife("days");
+  cacheTag("items");
+
   return (
     <div>
       <h1 className="mb-6 text-3xl font-bold">Cards</h1>
@@ -23,7 +29,7 @@ export default function CardsPage() {
 }
 
 async function ItemCards() {
-  const items = await getItems();
+  const items = await getCachedItems();
 
   return (
     <div className="@container">

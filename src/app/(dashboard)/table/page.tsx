@@ -1,8 +1,10 @@
+"use cache";
+
 import { Suspense } from "react";
-import { getItems } from "@/lib/sdk";
+import { getCachedItems } from "@/lib/sdk";
 import { ItemsTable, ItemsTableSkeleton } from "./_components/items-table";
 
-export default function TablePage() {
+export default async function TablePage() {
   return (
     <div>
       <h1 className="mb-6 text-3xl font-bold">Table</h1>
@@ -14,6 +16,6 @@ export default function TablePage() {
 }
 
 async function ItemsTableWrapper() {
-  const items = await getItems();
+  const items = await getCachedItems();
   return <ItemsTable data={items} />;
 }

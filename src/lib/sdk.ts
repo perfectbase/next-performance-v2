@@ -1,26 +1,13 @@
-import { auth } from "@/server/auth";
 import { mockItems } from "@/server/mock/items";
 
-export async function getItems() {
-  // Check session
-  const session = await auth();
-  if (!session) {
-    throw new Error("User is not signed-in");
-  }
-
+export async function getCachedItems() {
   // Simulate query delay
   await new Promise((resolve) => setTimeout(resolve, 300));
 
   return mockItems;
 }
 
-export async function getItem(id: number) {
-  // Check session
-  const session = await auth();
-  if (!session) {
-    throw new Error("User is not signed-in");
-  }
-
+export async function getCachedItem(id: number) {
   // Simulate query delay
   await new Promise((resolve) => setTimeout(resolve, 100));
 

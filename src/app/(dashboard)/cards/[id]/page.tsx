@@ -1,7 +1,9 @@
+"use cache";
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { getItem } from "@/lib/sdk";
+import { getCachedItem } from "@/lib/sdk";
 import { formatDate } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,11 +15,15 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
+export async function generateStaticParams() {
+  return [{ id: "1" }];
+}
+
 type PageProps = {
   params: Promise<{ id: string }>;
 };
 
-export default function ItemDetailsPage({ params }: PageProps) {
+export default async function ItemDetailsPage({ params }: PageProps) {
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
@@ -41,7 +47,7 @@ async function ItemDetails({ params }: { params: Promise<{ id: string }> }) {
     notFound();
   }
 
-  const item = await getItem(itemId);
+  const item = await getCachedItem(itemId);
 
   if (!item) {
     notFound();
