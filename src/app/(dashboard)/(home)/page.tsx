@@ -7,6 +7,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+export const runtime = "edge";
+
 export default function HomePage() {
   return (
     <div>

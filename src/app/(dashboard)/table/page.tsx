@@ -1,6 +1,8 @@
 import { getItems } from "@/lib/sdk";
 import { ItemsTable } from "./_components/items-table";
 
+export const runtime = "edge";
+
 export default function TablePage() {
   return (
     <div>
