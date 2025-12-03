@@ -6,7 +6,9 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { PrefetchKind } from "next/dist/client/components/router-reducer/router-reducer-types";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { formatDate } from "@/lib/utils";
 import { Item } from "@/server/mock/items";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -80,6 +82,14 @@ export function ItemsTable({ data }: { data: Item[] }) {
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  useEffect(() => {
+    data.forEach((item, index) => {
+      router.prefetch(`/table/${item.id}`, {
+        kind: index === 0 ? PrefetchKind.FULL : PrefetchKind.AUTO,
+      });
+    });
+  }, [data, router]);
 
   return (
     <Table>

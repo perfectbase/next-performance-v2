@@ -28,10 +28,11 @@ async function ItemCards() {
   return (
     <div className="@container">
       <div className="grid gap-6 @lg:grid-cols-2 @4xl:grid-cols-3">
-        {items.map((item) => (
+        {items.map((item, index) => (
           <Link
             key={item.id}
             href={`/cards/${item.id}`}
+            prefetch={index === 0 ? true : "auto"}
             className="active:[&_div]:bg-amber-100"
           >
             <Card className="flex h-full cursor-pointer flex-col transition-shadow hover:shadow-lg">
