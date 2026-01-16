@@ -1,6 +1,5 @@
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { Suspense } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Link, useParams } from "react-router";
 import { getItem } from "@/lib/sdk";
 import { formatDate } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -12,39 +11,37 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import NotFound from "../_components/not-found";
 
-type PageProps = {
-  params: Promise<{ id: string }>;
-};
-
-export default function ItemDetailsPage({ params }: PageProps) {
+export default function ItemDetailsPage() {
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Item Details</h1>
-        <Link href="/cards">
+        <Link to="/cards">
           <Button variant="outline">← Back to Cards</Button>
         </Link>
       </div>
-      <Suspense fallback={<ItemDetailsSkeleton />}>
-        <ItemDetails params={params} />
-      </Suspense>
+      <ItemDetails />
     </div>
   );
 }
 
-async function ItemDetails({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const itemId = parseInt(id, 10);
+function ItemDetails() {
+  const { id } = useParams<{ id: string }>();
+  const itemId = parseInt(id!, 10);
 
-  if (isNaN(itemId)) {
-    notFound();
-  }
+  const { data: item, status } = useQuery({
+    queryKey: ["item", itemId],
+    queryFn: () => getItem(itemId),
+  });
 
-  const item = await getItem(itemId);
+  if (status === "pending") return <ItemDetailsSkeleton />;
 
-  if (!item) {
-    notFound();
+  if (status === "error") return <div>Error</div>;
+
+  if (!item || isNaN(itemId)) {
+    return <NotFound />;
   }
 
   return (
@@ -72,40 +69,46 @@ async function ItemDetails({ params }: { params: Promise<{ id: string }> }) {
           <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-4">
               <div>
-                <h3 className="mb-2 text-lg font-semibold">Item Information</h3>
-                <div className="space-y-3">
+                <h3 className="text-lg font-semibold">Item Information</h3>
+                <div className="mt-3 space-y-3">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">ID:</span>
-                    <span className="font-mono">{item.id}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Category:</span>
-                    <span>{item.category}</span>
+                    <span className="font-mono font-medium">{item.id}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Price:</span>
-                    <span className="font-semibold">${item.price}</span>
+                    <span className="font-mono font-medium text-green-600">
+                      ${item.price}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Category:</span>
+                    <span className="bg-primary/10 text-primary ring-primary/20 inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset">
+                      {item.category}
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Created:</span>
-                    <span>{formatDate(item.createdAt)}</span>
+                    <span className="font-mono text-sm">
+                      {formatDate(item.createdAt)}
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
             <div className="space-y-4">
               <div>
-                <h3 className="mb-2 text-lg font-semibold">Description</h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <h3 className="text-lg font-semibold">Description</h3>
+                <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
                   {item.description}
                 </p>
               </div>
               <div className="border-t pt-4">
-                <h3 className="mb-3 text-lg font-semibold">Actions</h3>
-                <div className="flex gap-3">
-                  <Button className="flex-1">Add to Cart</Button>
+                <h3 className="text-lg font-semibold">Actions</h3>
+                <div className="mt-3 flex gap-3">
+                  <Button className="flex-1">Edit Item</Button>
                   <Button variant="outline" className="flex-1">
-                    Save for Later
+                    Delete Item
                   </Button>
                 </div>
               </div>

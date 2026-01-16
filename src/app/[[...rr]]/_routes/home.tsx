@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "react-router";
 import {
   Card,
   CardContent,
@@ -12,7 +12,7 @@ export default function HomePage() {
     <div>
       <h1 className="mb-6 text-3xl font-bold">Home</h1>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <Link href="/cards" className="active:[&_div]:bg-amber-100">
+        <Link to="/cards" className="active:[&_div]:bg-amber-100">
           <Card className="h-full cursor-pointer transition-shadow hover:shadow-lg">
             <CardHeader>
               <CardTitle className="text-xl">Cards View</CardTitle>
@@ -26,7 +26,7 @@ export default function HomePage() {
           </Card>
         </Link>
 
-        <Link href="/table" className="active:[&_div]:bg-amber-100">
+        <Link to="/table" className="active:[&_div]:bg-amber-100">
           <Card className="h-full cursor-pointer transition-shadow hover:shadow-lg">
             <CardHeader>
               <CardTitle className="text-xl">Table View</CardTitle>
